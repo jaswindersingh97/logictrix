@@ -1,27 +1,32 @@
-import React from 'react'
-import optin from './../assets/opt in.svg';
+import React, { useState } from 'react'
 import configure from './../assets/configure.svg'
 import whatsapp from './../assets/whatsapp.svg'
-function OptInOutCard() {
-    const payload = {
-        heading:{
-            image:optin,
-            h1:"Opt-in",
-            p:"A text that explains what opt-in is",
-        },
-        body:{
-            left:{
-            h1:"Opt-in Response",
-            p:"Setup a response message for opt-in user keywords",
-            },
-            right:{
-               h1:"Opt-in Keywords",
-               p:"The user will have to type exactly one of these messages on which they should be automatically opted-in"
-            }
-        }
+import plus from './../assets/plus.svg';
+import Modal from './Modal';
+import InsideModal from './InsideModal';
+function OptInOutCard({payload}) {
+  const [keyword, setKeyword] = useState("");
+  const [keywords, setKeywords] = useState(["keyword","keyword","keyword","keyword","keyword","keyword","keyword",]);
+    const onsubmit = (e) =>{
+      e.preventDefault();
+      setKeywords((prev)=>([...prev , keyword]));
+      setKeyword("");
+    }
+    const deleteKeyword = (ind) =>{
+      setKeywords((prev)=>(prev.filter((item,index)=>(index!==ind))))
+    }
+    const [modal,setModal] =useState(true);
+    const closeModal= () =>{
+      setModal(false)
+    }
+    const openModal = () =>{
+      setModal(true)
     }
   return (
     <div className='container flex flex-col'>
+    <Modal isOpen={modal} onClose={closeModal}>
+      <InsideModal closeModal={closeModal}/>
+    </Modal>
       <div className='heading flex gap-4'>
         <img src={payload.heading.image} />
         <div className='heading-right'>
@@ -30,7 +35,7 @@ function OptInOutCard() {
         </div>
       </div>
       <div className='body flex  p-4 gap-4 box-border'>
-        <div className='leftbody gap-2 flex flex-col flex-1 gap-1 bg-[#F7F8FA] justify-between  rounded-xl p-4'>
+        <div className='leftbody gap-4 flex flex-col flex-1  bg-[#F7F8FA] justify-between  rounded-xl p-5'>
         <div className='top flex flex-1 gap-1 justify-between'>
         <div className='left left  flex flex-col gap-1'>
             <h1 className='text-xl  font-bold'>{payload.body.left.h1}</h1>
@@ -44,22 +49,40 @@ function OptInOutCard() {
           </div>
         </div>
         <div className='flex flex-col'>
-          <button className= 'flex gap-1 text-white bg-blue-500 w-fit p-3 '>
+          <button onClick={openModal} className= 'flex gap-1 text-white bg-blue-500 w-fit p-3 '>
           <img src={configure} />
           Configure</button>
         </div>
         <div className="message flex">
-          <div className="inner-message relative p-4 shadow-xl/50 rounded-xl">
-            some message
-            <div className="whatsapp-icon bg-green-400 rounded-2xl p-1 absolute -top-3 -left-3 border">
+          <div className="inner-message border relative p-5 shadow-xl/50 rounded-xl">
+            Hi! Thanks for connecting. Someone from our team will get in touch soon.
+            <button className="whatsapp-icon bg-green-400 rounded-2xl p-1 absolute -top-3 -left-3 border">
               <img src={whatsapp}/>
-            </div>
+            </button>
           </div>
         </div>
 
         </div>
 
-        <div className='rightbody flex flex-1 p-4 rounded-xl '>
+        <div className='rightbody gap-2 flex flex-1 flex-col p-4 rounded-xl '>
+          <div className='group1'>
+            <h1 className='text-xl  font-bold'>{payload.body.right.h1}</h1>
+            <p>{payload.body.right.p}</p>
+          </div>
+          <div className='group2 w-full  box-border gap-2 flex flex-col'>
+            <form onSubmit={onsubmit} className=' adding keywords flex gap-2 p-4  rounded-xl border-gray-400 border'>
+              <img src={plus}/>
+              <input type='text' value={keyword} placeholder='# Add keyword' className='w-full outline-none' onChange={(e)=>setKeyword(e.target.value)}/>
+            </form>
+            <div className='keywords w-full box-border flex-wrap-reverse flex gap-2 wrap-normal'>
+              {keywords.map((item,index)=>(
+                <div key={index} onClick={()=>deleteKeyword(index)} className='keyword hover:cursor-pointer hover:outline-1  flex gap-1 bg-[#0F62FE12] p-4'>
+                  {item}
+                  <button>x</button>
+                </div>
+              ))}
+            </div>
+          </div>
 
         </div>
       </div>

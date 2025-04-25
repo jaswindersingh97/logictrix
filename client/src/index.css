@@ -1,7 +1,8 @@
 
 #root{
-  width: 100vw;
+  /* width: 100vw; */
   min-height: 100vh;
+  overflow: auto
 }
 @import "tailwindcss";
 
@@ -10,4 +11,8 @@ button{
 }
 button:hover{
   cursor: pointer;
+}
+ 
+*{
+  /* border: 1px, red, solid; */
 }
