@@ -24,7 +24,7 @@ const App = () => {
                  p:"The user will have to type exactly one of these messages on which they should be automatically opted-in"
               }
           },
-          ModalState:true
+          ModalState:false
       },
       {
         heading:{
