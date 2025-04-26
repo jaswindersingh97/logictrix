@@ -16,3 +16,7 @@ button:hover{
 *{
   /* border: 1px, red, solid; */
 }
+
+label{
+  cursor: pointer;
+}

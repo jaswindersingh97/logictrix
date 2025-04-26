@@ -15,7 +15,7 @@ function OptInOutCard({payload}) {
     const deleteKeyword = (ind) =>{
       setKeywords((prev)=>(prev.filter((item,index)=>(index!==ind))))
     }
-    const [modal,setModal] =useState(true);
+    const [modal,setModal] =useState(payload.ModalState);
     const closeModal= () =>{
       setModal(false)
     }

@@ -23,7 +23,8 @@ const App = () => {
                  h1:"Opt-in Keywords",
                  p:"The user will have to type exactly one of these messages on which they should be automatically opted-in"
               }
-          }
+          },
+          ModalState:true
       },
       {
         heading:{
@@ -40,7 +41,8 @@ const App = () => {
                h1:"Opt-out Keywords",
                p:"The user will have to type exactly one of these messages on which they should be automatically opted-out"
             }
-        }
+        },
+        ModalState:false
     }
     ]
   return (
@@ -70,7 +72,7 @@ const App = () => {
         </div>
         <div className='innerbody  border-gray-200 border rounded-xl p-4'>
           {payload.map((item,index)=>(
-            <OptInOutCard payload={item}/>
+            <OptInOutCard key={index} payload={item}/>
           ))}
         </div>  
         </div>
