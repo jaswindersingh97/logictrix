@@ -19,6 +19,7 @@ const RichTextEditor = forwardRef((_, ref) => {
         buttons: ['bold', 'italic', 'underline', '|', 'ul', 'ol', '|', 'outdent', 'indent'],
         height: 300,
       }}
+      onChange={()=>console.log("testing")}
     />
   );
 });

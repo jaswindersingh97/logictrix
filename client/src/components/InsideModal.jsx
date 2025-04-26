@@ -1,6 +1,7 @@
 import React ,{useState, useRef} from 'react'
 import RichTextEditor from './RichTextEditor';
 import MediaInput from './MediaInput';
+import Preview from './Preview';
 function InsideModal({closeModal}) {
     const [values, setValues] = useState({
         messageType:"Pre-approved",
@@ -24,6 +25,10 @@ function InsideModal({closeModal}) {
         const content = editorRef.current.getContent();
         setValues((prev)=>({...prev,messageText:content}));
       };
+      const handleContentChange = (newContent) => {
+        setValues((prev) => ({ ...prev, messageText: newContent }));
+      };
+      
     const setMedia = (url) =>{
         setValues((prev)=>({...prev, media:url}))
     }
@@ -53,7 +58,7 @@ function InsideModal({closeModal}) {
                         }
                     </div>
                     {values.messageType === "Regular" &&
-                    <div> 
+                    <div className='gap-2 flex flex-col'> 
                     <div className='data-type '>
                         <p className='text-gray-500 p-2'>Type</p>
                         {
@@ -70,19 +75,16 @@ function InsideModal({closeModal}) {
                             ))
                         }
                     </div>
-                    {values.type !== null && types.some((type)=>(type == values.type)) && 
-                    <div className='w-[100%] flex flex-col'>
-                        <RichTextEditor ref={editorRef} />
-                    </div>}
                     {values.type == "Image" && <div><MediaInput setMedia={setMedia} mediaType={"image"}/></div>}
                     {values.type == "Video" && <div><MediaInput setMedia={setMedia} mediaType={"video"}/></div>}
                     {values.type == "Document" && <div><MediaInput setMedia={setMedia} mediaType={"doc"}/></div>}
+                    {values.type !== null && types.some((type)=>(type == values.type)) && <div className='w-[100%] flex flex-col'><RichTextEditor ref={editorRef} onChange={handleContentChange}/></div>}
                     </div>}
                     {values.messageType === "Pre-approved" && <div>hi</div>}
                 </form>
             </div>
-            <div className='right'>
-                
+            <div className='right flex flex-1 '>
+                <Preview payload={values} />
             </div>
         </div>      
         <div className='footer flex justify-end border-t p-2 gap-2 border-gray-400'>

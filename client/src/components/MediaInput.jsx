@@ -5,15 +5,15 @@ function MediaInput({ mediaType, setMedia }) {
   const fileTypes = {
     image: {
       accept: 'image/png, image/jpeg',
-      help: 'Supported File Types: png or jpeg',
+      help: 'png or jpeg',
     },
     video: {
       accept: 'video/mp4, video/webm',
-      help: 'Supported File Types: mp4 or webm',
+      help: 'mp4 or webm',
     },
     doc: {
       accept: '.pdf, .doc, .docx',
-      help: 'Supported File Types: pdf, doc, or docx',
+      help: 'pdf, doc, or docx',
     },
   };
 
@@ -40,14 +40,14 @@ function MediaInput({ mediaType, setMedia }) {
   };
 
   return (
-    <div className="container flex flex-col gap-4 p-4 border rounded max-w-lg">
+    <div className="container flex flex-col gap-4 p-4 rounded max-w-lg">
       <div>
-        <h1 className="text-2xl font-semibold">Upload Media File</h1>
-        <p className="text-sm text-[#68687B]">{help}</p>
-        <p className="text-sm text-[#68687B]">Maximum file size: <span>5 MB</span></p>
+        <h1 className="text-xl font-semibold">Upload Media File</h1>
+        <p className="text-sm text-[#68687B]">Supported File Types: <span className='text-black'>{help}</span></p>
+        <p className="text-sm text-[#68687B]">Maximum file size: <span className='text-black'>5 MB</span></p>
       </div>
 
-      <label className="cursor-pointer bg-blue-500 text-white p-2 rounded inline-block w-fit">
+      <label className="cursor-pointer bg-blue-500 text-white p-2 rounded inline-block text-center ">
         Upload from Computer
         <input
           type="file"
